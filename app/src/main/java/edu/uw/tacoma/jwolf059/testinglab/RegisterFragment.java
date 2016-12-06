@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import edu.uw.tacoma.jwolf059.testinglab.autheticate.Account;
 
+import static edu.uw.tacoma.jwolf059.testinglab.R.id.register_button;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,23 +30,27 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_register, container, false);
-        final EditText mUserIdText = (EditText) v.findViewById(R.id.editText);
-        final EditText mPwdText = (EditText) v.findViewById(R.id.editText2);
-        Button reg = (Button) v.findViewById(R.id.reg_button);
+        final EditText mUserIdText = (EditText) v.findViewById(R.id.email_text);
+        final EditText mPwdText = (EditText) v.findViewById(R.id.pwd_text);
+        Button reg = (Button) v.findViewById(register_button);
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String userID = mUserIdText.getText().toString();
-                String pass = mPwdText.getText().toString();
-                Account newACT = new Account(userID, pass);
-                if (newACT.getmEmail() == null || newACT.getmPassword() == null) {
-                    newACT = null;
-                    Toast.makeText(getContext(), "Invalid Input DO IT AGAIN", Toast.LENGTH_SHORT) .show();
-                } else {
-                    ((SignInActivity) getActivity()).register(newACT);
+            public void onClick(View v) {
+                String userId = mUserIdText.getText().toString();
+                String pwd = mPwdText.getText().toString();
+                try {
+                    Account newAccount = new Account(userId, pwd);
+                    ((SignInActivity) getActivity()).register(newAccount);
+
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(v.getContext()
+                            , e.getMessage()
+                            , Toast.LENGTH_SHORT)
+                            .show();
                 }
             }
         });
+
         return v;
     }
 

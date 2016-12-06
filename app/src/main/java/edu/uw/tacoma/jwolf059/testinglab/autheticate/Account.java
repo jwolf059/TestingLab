@@ -26,19 +26,15 @@ public class Account {
 
     public Account(String theEmail, String thePassword) {
 
-        try {
             setmEmail(theEmail);
             setmPassword(thePassword);
-        } catch (IllegalArgumentException e) {
-            return;
-        }
     }
 
     public void setmEmail(String theEmail) {
         if (isValidEmail(theEmail)) {
             mEmail = theEmail;
         } else {
-            throw new IllegalArgumentException("Invaild input for Email");
+            throw new IllegalArgumentException("Invalid email");
         }
     }
 
@@ -47,7 +43,7 @@ public class Account {
         if (isValidPassword(thePassword)) {
             mPassword = thePassword;
         } else {
-            throw new IllegalArgumentException("Invalid Password format");
+            throw new IllegalArgumentException("Invalid password");
         }
     }
 

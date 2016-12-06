@@ -4,6 +4,7 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +43,14 @@ public class SignInActivityTest {
     public ActivityTestRule<SignInActivity> mActivityRule = new ActivityTestRule<>(
             SignInActivity.class);
 
+    @Before
+    public void logout() {
+        onView(withId(R.id.action_logout))
+                .perform(click());
+
+    }
+
+
     @Test
     public void testRegister() {
 
@@ -53,11 +62,11 @@ public class SignInActivityTest {
                 + "@uw.edu";
 
         // Type text and then press the button.
-        onView(withId(R.id.editText))
+        onView(withId(R.id.email_text))
                 .perform(typeText(email));
-        onView(withId(R.id.editText2))
+        onView(withId(R.id.pwd_text))
                 .perform(typeText("test1@#"));
-        onView(withId(R.id.reg_button))
+        onView(withId(R.id.register_button))
                 .perform(click());
 
         onView(withText("User successfully registered!"))
@@ -72,11 +81,11 @@ public class SignInActivityTest {
     @Test
     public void testRegisterInvalidEmail() {
         // Type text and then press the button.
-        onView(withId(R.id.editText))
+        onView(withId(R.id.email_text))
                 .perform(typeText("mmuppauw.edu"));
-        onView(withId(R.id.editText2))
+        onView(withId(R.id.pwd_text))
                 .perform(typeText("test1@#"));
-        onView(withId(R.id.reg_button))
+        onView(withId(R.id.register_button))
                 .perform(click());
 
         onView(withText("Invalid email"))
@@ -86,11 +95,11 @@ public class SignInActivityTest {
     @Test
     public void testRegisterInvalidPassword() {
         // Type text and then press the button.
-        onView(withId(R.id.editText))
+        onView(withId(R.id.email_text))
                 .perform(typeText("mmuppa@uw.edu"));
-        onView(withId(R.id.editText2))
+        onView(withId(R.id.pwd_text))
                 .perform(typeText(""));
-        onView(withId(R.id.reg_button))
+        onView(withId(R.id.register_button))
                 .perform(click());
 
         onView(withText("Invalid password"))
